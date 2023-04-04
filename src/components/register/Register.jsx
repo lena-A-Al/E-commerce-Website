@@ -2,6 +2,7 @@ import React from "react";
 import registerCSS from "./register.module.css";
 import { useFormik } from "formik";
 import axios from "axios";
+import $ from "jquery";
 
 export default function Register() {
   // info coming from the form
@@ -9,33 +10,42 @@ export default function Register() {
     name: "",
     email: "",
     password: "",
-    repassword: "",
+    rePassword: "",
     phone: "",
   };
 
-  async function registerNewUser() {
-    let newUser = user;
-    let sendNewUserToBackend = await axios.post(
-      "https://route-ecommerce.onrender.com/api/v1/auth/signup",
-      { user }
-    );
-    console.log("sendNewUserToBackend", sendNewUserToBackend);
+  //function to send the values to the backend
+  async function registerNewUser(obj) {
+    try {
+      let { data } = await axios.post(
+        "https://route-ecommerce.onrender.com/api/v1/auth/signup",
+        obj
+      );
+      console.log(data.response);
+    } catch (error) {
+      console.log("error", error);
+      $(".errorMsg").fadeIn(1000, function () {
+        setTimeout(() => {
+          $(".errorMsg").fadeOut(500);
+        }, 3000);
+      });
+    }
   }
   //this is the start of using formik
   const formik = useFormik({
     initialValues: user,
     //submit will happen after validate.
     onSubmit: (values) => {
-      // console.log("values", values);
+      console.log("values", values);
       //if the validation is right, send the data to the backend-call API
-      registerNewUser();
+      registerNewUser(values);
     },
     //validate the data before sending to backend
     validate: (values) => {
       // console.log(values);
       let errors = {};
       //do the validation here
-      if (values.name.length < 3 || values.name.length > 10) {
+      if (values.name.length < 3 || values.name.length > 20) {
         errors.name = "Name must be more than 3 characters and less than 10!";
       }
 
@@ -46,16 +56,16 @@ export default function Register() {
         errors.email = "Email must be valid!";
       }
 
-      if (!values.phone.m(/^(02)?01[0125][0-9]{8}$/)) {
-        errors.phone = "Phone must be egyptian number!";
-      }
+      // if (!values.phone.match(/^(02)?01[0125][0-9]{8}$/)) {
+      //   errors.phone = "Phone must be egyptian number!";
+      // }
 
-      if (values.password.length < 3 || values.password.length > 12) {
+      if (values.password.length < 3 || values.password.length > 15) {
         errors.password = "Password must be from 6 to 12 characters only!";
       }
 
-      if (values.password != values.repassword) {
-        errors.repassword = "Password and repassword must be identical!";
+      if (values.password !== values.rePassword) {
+        errors.rePassword = "Password and repassword must be identical!";
       }
       // if there are errors, return the errors
       return errors;
@@ -65,6 +75,14 @@ export default function Register() {
   return (
     <div className="container py-5">
       <h2 className="">Registeration Form</h2>
+
+      <div
+        style={{ display: "none" }}
+        className="errorMsg alert alert-danger text-center"
+      >
+        Email already in use!
+      </div>
+
       <form className="" onSubmit={formik.handleSubmit}>
         <label className="mt-3" htmlFor="name">
           Name
@@ -146,21 +164,21 @@ export default function Register() {
           ""
         )}
 
-        <label className="mt-3" htmlFor="repassword">
+        <label className="mt-3" htmlFor="rePassword">
           RePassord
         </label>
         <input
           onBlur={formik.handleBlur}
           onChange={formik.handleChange}
-          value={formik.values.repassword}
-          id="repassword"
-          placeholder="repassword"
+          value={formik.values.rePassword}
+          id="rePassword"
+          placeholder="rePassword"
           type="password"
           className="form-control"
         />
-        {formik.errors.repassword && formik.touched.repassword ? (
+        {formik.errors.rePassword && formik.touched.rePassword ? (
           <div className="alert alert-danger text-center">
-            {formik.errors.repassword}
+            {formik.errors.rePassword}
           </div>
         ) : (
           ""
