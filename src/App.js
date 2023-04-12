@@ -5,6 +5,7 @@ import Login from "./components/login/Login.jsx";
 import Register from "./components/register/Register.jsx";
 import Layout from "./components/layout/Layout";
 import error from "./images/error.svg";
+import Brands from "./components/brands/Brands";
 function App() {
   const router = createBrowserRouter([
     {
@@ -13,6 +14,7 @@ function App() {
       children: [
         { path: "", element: <Home /> },
         { path: "home", element: <Home /> },
+        { path: "brands", element: <Brands /> },
         { path: "login", element: <Login /> },
         { path: "register", element: <Register /> },
         {

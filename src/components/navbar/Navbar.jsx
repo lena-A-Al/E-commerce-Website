@@ -22,14 +22,18 @@ export default function Navbar() {
               </li>
 
               <li class="nav-item">
-                <Link className="nav-link active" aria-current="page" to="/">
+                <Link
+                  className="nav-link active"
+                  aria-current="page"
+                  to="/brands"
+                >
                   Brands
                 </Link>
               </li>
 
               <li class="nav-item">
                 <Link className="nav-link active" aria-current="page" to="/">
-                  Brands
+                  Carts
                 </Link>
               </li>
             </ul>

@@ -3,8 +3,11 @@ import registerCSS from "./register.module.css";
 import { useFormik } from "formik";
 import axios from "axios";
 import $ from "jquery";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
+  //customs hooks
+  let navigate = useNavigate();
   // info coming from the form
   let user = {
     name: "",
@@ -21,7 +24,14 @@ export default function Register() {
         "https://route-ecommerce.onrender.com/api/v1/auth/signup",
         obj
       );
-      console.log(data.response);
+      if (data.message === "success") {
+        $(".successMsg").fadeIn(1000, () => {
+          navigate("/login");
+          setTimeout(() => {
+            $(".successMsg").fadeOut(100);
+          }, 100);
+        });
+      }
     } catch (error) {
       console.log("error", error);
       $(".errorMsg").fadeIn(1000, function () {
@@ -31,6 +41,7 @@ export default function Register() {
       });
     }
   }
+
   //this is the start of using formik
   const formik = useFormik({
     initialValues: user,
@@ -39,6 +50,7 @@ export default function Register() {
       console.log("values", values);
       //if the validation is right, send the data to the backend-call API
       registerNewUser(values);
+      // navigate("/login");
     },
     //validate the data before sending to backend
     validate: (values) => {
@@ -78,9 +90,16 @@ export default function Register() {
 
       <div
         style={{ display: "none" }}
-        className="errorMsg alert alert-danger text-center"
+        className="errorMsg alert alert-success text-center"
       >
         Email already in use!
+      </div>
+
+      <div
+        style={{ display: "none" }}
+        className="successMsg alert alert-success text-center"
+      >
+        Email is valid!
       </div>
 
       <form className="" onSubmit={formik.handleSubmit}>
