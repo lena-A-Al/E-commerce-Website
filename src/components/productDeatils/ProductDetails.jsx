@@ -26,25 +26,29 @@ export default function ProductDetails() {
   });
   return (
     <>
-      <div className="container">
-        <div className="row align-items-center justify-content-center">
-          <div className="col-md-3">
-            <img className="w-100" src="imagelogo" alt="imagelogo" />
-          </div>
-          <div className="col-md-9 py-5">
-            <h3>Lorem ipsum dolor sit amet.</h3>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo
-              tenetur cupiditate ducimus aperiam at quibusdam molestiae
-              voluptatibus exercitationem, maxime saepe.
-            </p>
-            <h4>Price:33</h4>
-            <h4>Quantity:33</h4>
-            <h4>Rate:33</h4>
-            <button className="btn btn-success w-100">Add To Cart +</button>
+      {productDetails == null ? (
+        <LoadingScreen />
+      ) : (
+        <div className="container">
+          <div className="row align-items-center justify-content-center">
+            <div className="col-md-3">
+              <img
+                className="w-100"
+                src={productDetails.imageCover}
+                alt={productDetails.title}
+              />
+            </div>
+            <div className="col-md-9 py-5">
+              <h3>{productDetails.title}</h3>
+              <p>{productDetails.description}</p>
+              <h4>Price: {productDetails.price}</h4>
+              <h4>Quantity: {productDetails.quantity}</h4>
+              <h4>Rate: {productDetails.ratingsAverage}</h4>
+              <button className="btn btn-success w-100">Add To Cart +</button>
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </>
   );
 }
