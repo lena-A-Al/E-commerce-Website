@@ -33,7 +33,10 @@ export default function Home() {
             {products &&
               products.map((product, index) => (
                 <div key={index} className="col-md-2 position-relative">
-                  <Link to={`/productDeatils/${product.id}`}>
+                  <Link
+                    className={homeCSS.link}
+                    to={`/productDeatils/${product.id}`}
+                  >
                     <div className="item bg-light rounded text-center">
                       <img
                         className={homeCSS.imageStyle}

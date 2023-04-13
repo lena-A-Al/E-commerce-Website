@@ -38,10 +38,10 @@ export default function ProductDetails() {
                 alt={productDetails.title}
               />
             </div>
-            <div className="col-md-9 py-5">
+            <div className="col-md-9">
               <h3>{productDetails.title}</h3>
               <p>{productDetails.description}</p>
-              <h4>Price: {productDetails.price}</h4>
+              <h4>Price: ${productDetails.price}</h4>
               <h4>Quantity: {productDetails.quantity}</h4>
               <h4>Rate: {productDetails.ratingsAverage}</h4>
               <button className="btn btn-success w-100">Add To Cart +</button>
