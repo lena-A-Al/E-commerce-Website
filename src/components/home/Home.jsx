@@ -21,7 +21,7 @@ export default function Home() {
 
   useEffect(() => {
     getAllProducts();
-  });
+  }, []);
 
   return (
     <>
@@ -47,7 +47,7 @@ export default function Home() {
                         {/* indexOf here will find the space after 20 characters, so the slice will be from 0 until the second space after counting 20 */}
                         {product.title.slice(0, product.title.indexOf(" ", 20))}
                       </h6>
-                      <h6>{product.category.name}</h6>
+                      {/* <h6>{product.category.name}</h6> */}
                       {product.priceAfterDiscount ? (
                         <div className="d-flex justify-content-between">
                           <h6

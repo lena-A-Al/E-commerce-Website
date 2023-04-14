@@ -14,7 +14,7 @@ export default function ProductDetails() {
       let { data } = await axios.get(
         `https://route-ecommerce.onrender.com/api/v1/products/${id}`
       );
-      console.log(data.data);
+      console.log("data", data.data);
       setProductDetails(data.data);
     } catch (error) {
       console.log("eror", error);
@@ -23,7 +23,7 @@ export default function ProductDetails() {
 
   useEffect(() => {
     getProductDetails();
-  });
+  }, []);
   return (
     <>
       {productDetails == null ? (

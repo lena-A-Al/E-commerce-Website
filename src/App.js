@@ -7,6 +7,7 @@ import Layout from "./components/layout/Layout";
 import error from "./images/error.svg";
 import Brands from "./components/brands/Brands";
 import ProductDetails from "./components/productDeatils/ProductDetails";
+import BrandProducts from "./components/brandProducts/BrandProducts";
 function App() {
   const router = createBrowserRouter([
     {
@@ -17,6 +18,7 @@ function App() {
         { path: "home", element: <Home /> },
         { path: "productDeatils/:id", element: <ProductDetails /> },
         { path: "brands", element: <Brands /> },
+        { path: "brandProducts/:id", element: <BrandProducts /> },
         { path: "login", element: <Login /> },
         { path: "register", element: <Register /> },
         {

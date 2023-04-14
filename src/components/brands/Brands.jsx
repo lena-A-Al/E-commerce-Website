@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import brandsCSS from "./brands.module.css";
 import axios from "axios";
 import LoadingScreen from "../loadingScreen/LoadingScreen";
+import { Link } from "react-router-dom";
 
 export default function Brands() {
   let [allBrands, setAllBrands] = useState(null);
@@ -42,14 +43,20 @@ export default function Brands() {
                   key={brand._id}
                   className="col-md-3 text-center text-primary pt-5"
                 >
-                  <div>
-                    <img
-                      className={brandsCSS.imageStyle}
-                      src={brand.image}
-                      alt={brand.name}
-                    />
-                    <h3 className="fw-bold">{brand.name}</h3>
-                  </div>
+                  <Link
+                    className={brandsCSS.link}
+                    to={`/brandProducts/${brand._id}`}
+                  >
+                    <div>
+                      <img
+                        className={brandsCSS.imageStyle}
+                        src={brand.image}
+                        alt={brand.name}
+                      />
+                      <h3 className="fw-bold">{brand.name}</h3>
+                      {/* <h1>{brand._id}</h1> */}
+                    </div>
+                  </Link>
                 </div>
               ))}
           </div>
