@@ -3,6 +3,8 @@ import axios from "axios";
 import homeCSS from "./home.module.css";
 import LoadingScreen from "../loadingScreen/LoadingScreen";
 import { Link } from "react-router-dom";
+import SliderComponent from "../SliderComponent/SliderComponent";
+// import "jquery"
 
 export default function Home() {
   //local States to save products coming from the API
@@ -28,7 +30,9 @@ export default function Home() {
       {products == null ? (
         <LoadingScreen />
       ) : (
-        <div className="container">
+        <div className="container py-4">
+          <SliderComponent />
+
           <div className="row">
             {products &&
               products.map((product, index) => (
@@ -48,6 +52,7 @@ export default function Home() {
                         {product.title.slice(0, product.title.indexOf(" ", 20))}
                       </h6>
                       {/* <h6>{product.category.name}</h6> */}
+                      {/* <button className={homeCSS.addCart}>Add To Cart +</button> */}
                       {product.priceAfterDiscount ? (
                         <div className="d-flex justify-content-between">
                           <h6
@@ -62,7 +67,7 @@ export default function Home() {
                         </div>
                       ) : (
                         <div>
-                          <h6 className="fs-5">${product.price}</h6>
+                          <h6 className="fs-5 p-3">${product.price}</h6>
                         </div>
                       )}
                       <div>
