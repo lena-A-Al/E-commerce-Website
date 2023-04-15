@@ -3,8 +3,9 @@ import { useFormik } from "formik";
 import axios from "axios";
 import $ from "jquery";
 import { useNavigate } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 
-export default function Login() {
+export default function Login({ getUserData }) {
   //customs hooks
   let navigate = useNavigate();
   // info coming from the form
@@ -24,6 +25,10 @@ export default function Login() {
         obj
       );
       if (data.message === "success") {
+        //save the token of the user in the local storage, only if the user log in successfully.
+        localStorage.setItem("token", data.token);
+        //get the user data after saving.
+        getUserData();
         $(".successMsg").fadeIn(1000, () => {
           navigate("/home");
           setTimeout(() => {
@@ -46,7 +51,7 @@ export default function Login() {
     initialValues: user,
     //submit will happen after validate.
     onSubmit: (values) => {
-      console.log("values", values);
+      // console.log("values", values);
       //if the validation is right, send the data to the backend-call API
       loginUser(values);
       // navigate("/login");

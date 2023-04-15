@@ -7,14 +7,12 @@ export default function ProductDetails() {
   let [productDetails, setProductDetails] = useState(null);
   //customs hooks
   const { id } = useParams();
-  console.log(id);
 
   const getProductDetails = async () => {
     try {
       let { data } = await axios.get(
         `https://route-ecommerce.onrender.com/api/v1/products/${id}`
       );
-      console.log("data", data.data);
       setProductDetails(data.data);
     } catch (error) {
       console.log("eror", error);

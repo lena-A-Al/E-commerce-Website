@@ -8,7 +8,21 @@ import error from "./images/error.svg";
 import Brands from "./components/brands/Brands";
 import ProductDetails from "./components/productDeatils/ProductDetails";
 import BrandProducts from "./components/brandProducts/BrandProducts";
+import Profile from "./components/profile/Profile";
+import jwt_decode from "jwt-decode";
+import { useEffect, useState } from "react";
+
 function App() {
+  let [currentUser, setCurrentUser] = useState(null);
+  //this function will decode the user token
+  // we want to call this function when the user log in
+  const getUserData = async () => {
+    //decode user token
+    let token = localStorage.getItem("token");
+    let decoded = jwt_decode(token);
+    setCurrentUser(decoded);
+  };
+
   const router = createBrowserRouter([
     {
       path: "",
@@ -19,8 +33,9 @@ function App() {
         { path: "productDeatils/:id", element: <ProductDetails /> },
         { path: "brands", element: <Brands /> },
         { path: "brandProducts/:id", element: <BrandProducts /> },
-        { path: "login", element: <Login /> },
+        { path: "login", element: <Login getUserData={getUserData} /> },
         { path: "register", element: <Register /> },
+        { path: "profile", element: <Profile /> },
         {
           path: "/*",
           element: (

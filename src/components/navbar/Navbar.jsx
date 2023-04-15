@@ -42,9 +42,18 @@ export default function Navbar() {
                 <Link
                   className="nav-link active"
                   aria-current="page"
-                  to="/login"
+                  to="/register"
                 >
-                  Login
+                  Register
+                </Link>
+              </li>
+              <li class="nav-item">
+                <Link
+                  className="nav-link active"
+                  aria-current="page"
+                  to="/profile"
+                >
+                  Profile
                 </Link>
               </li>
 
@@ -52,9 +61,9 @@ export default function Navbar() {
                 <Link
                   className="nav-link active"
                   aria-current="page"
-                  to="/register"
+                  to="/login"
                 >
-                  Register
+                  Login
                 </Link>
               </li>
             </ul>
