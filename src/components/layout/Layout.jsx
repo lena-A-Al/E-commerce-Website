@@ -2,10 +2,10 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "../navbar/Navbar.jsx";
 
-export default function Layout() {
+export default function Layout({ currentUser, clearUserData }) {
   return (
     <>
-      <Navbar />
+      <Navbar currentUser={currentUser} clearUserData={clearUserData} />
       <Outlet />
       <footer className="p-4">
         <h2>Get the FreshCart App</h2>

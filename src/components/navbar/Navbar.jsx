@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import refreshCartLogo from "../../images/freshcart-logo.svg";
-export default function Navbar() {
+export default function Navbar({ currentUser, clearUserData }) {
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -37,36 +37,49 @@ export default function Navbar() {
                 </Link>
               </li>
             </ul>
-            <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <Link
-                  className="nav-link active"
-                  aria-current="page"
-                  to="/register"
-                >
-                  Register
-                </Link>
-              </li>
-              <li class="nav-item">
-                <Link
-                  className="nav-link active"
-                  aria-current="page"
-                  to="/profile"
-                >
-                  Profile
-                </Link>
-              </li>
-
-              <li class="nav-item">
-                <Link
-                  className="nav-link active"
-                  aria-current="page"
-                  to="/login"
-                >
-                  Login
-                </Link>
-              </li>
-            </ul>
+            {currentUser ? (
+              <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <Link
+                    className="nav-link active"
+                    aria-current="page"
+                    to="/profile"
+                  >
+                    Profile
+                  </Link>
+                </li>
+                <li class="nav-item">
+                  <span
+                    onClick={clearUserData}
+                    className="nav-link active"
+                    aria-current="page"
+                  >
+                    Logout
+                  </span>
+                </li>
+              </ul>
+            ) : (
+              <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <Link
+                    className="nav-link active"
+                    aria-current="page"
+                    to="/login"
+                  >
+                    Login
+                  </Link>
+                </li>
+                <li class="nav-item">
+                  <Link
+                    className="nav-link active"
+                    aria-current="page"
+                    to="/register"
+                  >
+                    Register
+                  </Link>
+                </li>
+              </ul>
+            )}
           </div>
         </div>
       </nav>

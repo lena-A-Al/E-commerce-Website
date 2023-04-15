@@ -23,10 +23,18 @@ function App() {
     setCurrentUser(decoded);
   };
 
+  const clearUserData = async () => {
+    //when the user log out, we need to clear their data and the localStorage
+    localStorage.removeItem("token");
+    setCurrentUser(null);
+  };
+
   const router = createBrowserRouter([
     {
       path: "",
-      element: <Layout />,
+      element: (
+        <Layout currentUser={currentUser} clearUserData={clearUserData} />
+      ),
       children: [
         { path: "", element: <Home /> },
         { path: "home", element: <Home /> },
@@ -35,7 +43,7 @@ function App() {
         { path: "brandProducts/:id", element: <BrandProducts /> },
         { path: "login", element: <Login getUserData={getUserData} /> },
         { path: "register", element: <Register /> },
-        { path: "profile", element: <Profile /> },
+        { path: "profile", element: <Profile currentUser={currentUser} /> },
         {
           path: "/*",
           element: (

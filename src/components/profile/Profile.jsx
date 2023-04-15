@@ -1,9 +1,9 @@
 import React from "react";
 
-export default function Profile({ user }) {
+export default function Profile({ currentUser }) {
   return (
     <>
-      <h3>Welcome {user}</h3>
+      <h5 className="text-center p-5 fw-bolder">Welcome {currentUser.name}</h5>
     </>
   );
 }
