@@ -29,12 +29,12 @@ export default function Login({ getUserData }) {
         localStorage.setItem("token", data.token);
         //get the user data after saving.
         getUserData();
-        $(".successMsg").fadeIn(1000, () => {
-          navigate("/home");
+        $(".successMsg").fadeIn(100, () => {
           setTimeout(() => {
             $(".successMsg").fadeOut(100);
-          }, 100);
+          }, 10);
         });
+        navigate("/home");
       }
     } catch (error) {
       console.log("error", error);

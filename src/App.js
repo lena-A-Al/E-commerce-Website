@@ -1,5 +1,10 @@
 import "./App.css";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import {
+  BrowserRouter,
+  RouterProvider,
+  createBrowserRouter,
+  useNavigate,
+} from "react-router-dom";
 import Home from "./components/home/Home.jsx";
 import Login from "./components/login/Login.jsx";
 import Register from "./components/register/Register.jsx";
@@ -14,6 +19,8 @@ import { useEffect, useState } from "react";
 
 function App() {
   let [currentUser, setCurrentUser] = useState(null);
+
+  // let navigate = useNavigate();
   //this function will decode the user token
   // we want to call this function when the user log in
   const getUserData = async () => {
@@ -55,6 +62,13 @@ function App() {
       ],
     },
   ]);
+
+  useEffect(() => {
+    // if the token is stored and the currentUser is null
+    if (localStorage.getItem("token") != null && currentUser == null) {
+      getUserData();
+    }
+  }, [currentUser]);
   return (
     <>
       <div className="App">

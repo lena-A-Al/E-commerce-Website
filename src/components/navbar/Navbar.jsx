@@ -1,7 +1,13 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import refreshCartLogo from "../../images/freshcart-logo.svg";
 export default function Navbar({ currentUser, clearUserData }) {
+  const navigate = useNavigate();
+  const logoutUser = async () => {
+    clearUserData();
+    navigate("/home");
+  };
+
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -50,7 +56,7 @@ export default function Navbar({ currentUser, clearUserData }) {
                 </li>
                 <li class="nav-item">
                   <span
-                    onClick={clearUserData}
+                    onClick={logoutUser}
                     className="nav-link active"
                     aria-current="page"
                   >
