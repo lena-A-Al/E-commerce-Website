@@ -37,11 +37,15 @@ export default function Navbar({ currentUser, clearUserData }) {
                 </Link>
               </li>
 
-              <li class="nav-item">
-                <Link className="nav-link active" aria-current="page" to="/">
-                  Carts
-                </Link>
-              </li>
+              {currentUser ? (
+                <li class="nav-item">
+                  <Link className="nav-link active" aria-current="page" to="/">
+                    Carts
+                  </Link>
+                </li>
+              ) : (
+                ""
+              )}
             </ul>
             {currentUser ? (
               <ul className="navbar-nav ms-auto mb-2 mb-lg-0">

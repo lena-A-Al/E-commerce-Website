@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import LoadingScreen from "../loadingScreen/LoadingScreen";
 
-export default function ProductDetails() {
+export default function ProductDetails({ currentUser }) {
   let [productDetails, setProductDetails] = useState(null);
   //customs hooks
   const { id } = useParams();

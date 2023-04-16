@@ -36,6 +36,10 @@ function App() {
     setCurrentUser(null);
   };
 
+  // create a component to use for nested routes
+  function Test({ children }) {
+    return <>{currentUser && children}</>;
+  }
   const router = createBrowserRouter([
     {
       path: "",
@@ -45,7 +49,14 @@ function App() {
       children: [
         { path: "", element: <Home /> },
         { path: "home", element: <Home /> },
-        { path: "productDeatils/:id", element: <ProductDetails /> },
+        {
+          path: "productDeatils/:id",
+          element: (
+            <Test>
+              <ProductDetails />
+            </Test>
+          ),
+        },
         { path: "brands", element: <Brands /> },
         { path: "brandProducts/:id", element: <BrandProducts /> },
         { path: "login", element: <Login getUserData={getUserData} /> },
