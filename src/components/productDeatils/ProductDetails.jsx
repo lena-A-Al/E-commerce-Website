@@ -1,14 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import LoadingScreen from "../loadingScreen/LoadingScreen";
+import { cartContext } from "../../context/CartContext";
 
 export default function ProductDetails({ currentUser }) {
   let [productDetails, setProductDetails] = useState(null);
+  const { addProductToCart } = useContext(cartContext);
+
   //customs hooks
   const { id } = useParams();
 
   const getProductDetails = async () => {
+    // bring the data from the cart store
     try {
       let { data } = await axios.get(
         `https://route-ecommerce.onrender.com/api/v1/products/${id}`
@@ -42,7 +46,12 @@ export default function ProductDetails({ currentUser }) {
               <h4>Price: ${productDetails.price}</h4>
               <h4>Quantity: {productDetails.quantity}</h4>
               <h4>Rate: {productDetails.ratingsAverage}</h4>
-              <button className="btn btn-success w-100">Add To Cart +</button>
+              <button
+                className="btn btn-success w-100"
+                onClick={() => addProductToCart(productDetails.id)}
+              >
+                Add To Cart +
+              </button>
             </div>
           </div>
         </div>

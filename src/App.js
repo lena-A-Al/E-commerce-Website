@@ -1,6 +1,8 @@
 import "./App.css";
 import {
   BrowserRouter,
+  Link,
+  Navigate,
   RouterProvider,
   createBrowserRouter,
   useNavigate,
@@ -16,6 +18,8 @@ import BrandProducts from "./components/brandProducts/BrandProducts";
 import Profile from "./components/profile/Profile";
 import jwt_decode from "jwt-decode";
 import { useEffect, useState } from "react";
+import Cart from "./components/cart/Cart";
+import CartContextProvider from "./context/CartContext";
 
 function App() {
   let [currentUser, setCurrentUser] = useState(null);
@@ -36,9 +40,17 @@ function App() {
     setCurrentUser(null);
   };
 
-  // create a component to use for nested routes
-  function Test({ children }) {
-    return <>{currentUser && children}</>;
+  // create a functional component to use for nested protected routes
+  function ProtectedRoutes({ children }) {
+    if (currentUser == null) {
+      return (
+        // (window.location.href = "/login");
+        // window.location.assign("/login")
+        <Navigate to="/login" replace={true} />
+      );
+    } else {
+      return <>{children}</>;
+    }
   }
   const router = createBrowserRouter([
     {
@@ -48,20 +60,53 @@ function App() {
       ),
       children: [
         { path: "", element: <Home /> },
-        { path: "home", element: <Home /> },
+        {
+          path: "home",
+          element: (
+            <CartContextProvider>
+              <Home />
+            </CartContextProvider>
+          ),
+        },
         {
           path: "productDeatils/:id",
           element: (
-            <Test>
-              <ProductDetails />
-            </Test>
+            <ProtectedRoutes>
+              <CartContextProvider>
+                <ProductDetails />
+              </CartContextProvider>
+            </ProtectedRoutes>
           ),
         },
         { path: "brands", element: <Brands /> },
-        { path: "brandProducts/:id", element: <BrandProducts /> },
+        {
+          path: "brandProducts/:id",
+          element: (
+            <ProtectedRoutes>
+              <CartContextProvider>
+                <BrandProducts />
+              </CartContextProvider>
+            </ProtectedRoutes>
+          ),
+        },
         { path: "login", element: <Login getUserData={getUserData} /> },
         { path: "register", element: <Register /> },
-        { path: "profile", element: <Profile currentUser={currentUser} /> },
+        {
+          path: "profile",
+          element: (
+            <ProtectedRoutes>
+              <Profile currentUser={currentUser} />
+            </ProtectedRoutes>
+          ),
+        },
+        {
+          path: "cart",
+          element: (
+            <ProtectedRoutes>
+              <Cart />
+            </ProtectedRoutes>
+          ),
+        },
         {
           path: "/*",
           element: (

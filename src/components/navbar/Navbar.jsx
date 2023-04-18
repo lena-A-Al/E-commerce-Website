@@ -39,7 +39,11 @@ export default function Navbar({ currentUser, clearUserData }) {
 
               {currentUser ? (
                 <li class="nav-item">
-                  <Link className="nav-link active" aria-current="page" to="/">
+                  <Link
+                    className="nav-link active"
+                    aria-current="page"
+                    to="/cart"
+                  >
                     Carts
                   </Link>
                 </li>
