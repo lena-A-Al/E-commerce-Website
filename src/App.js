@@ -95,7 +95,10 @@ function App() {
           path: "profile",
           element: (
             <ProtectedRoutes>
-              <Profile currentUser={currentUser} />
+              <CartContextProvider>
+                {" "}
+                <Profile currentUser={currentUser} />
+              </CartContextProvider>
             </ProtectedRoutes>
           ),
         },
@@ -103,7 +106,9 @@ function App() {
           path: "cart",
           element: (
             <ProtectedRoutes>
-              <Cart />
+              <CartContextProvider>
+                <Cart />
+              </CartContextProvider>
             </ProtectedRoutes>
           ),
         },

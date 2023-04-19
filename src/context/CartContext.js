@@ -9,22 +9,27 @@ export default function CartContextProvider({ children }) {
   //this function will add product to user cart
   const addProductToCart = async (productId) => {
     try {
-      let productToAdd = await axios.post(
+      let { data } = await axios.post(
         `https://route-ecommerce.onrender.com/api/v1/cart`,
         { productId: productId },
         {
           headers: { token: localStorage.getItem("token") },
         }
       );
-      setUserCart(addProductToCart);
-      console.log(productToAdd);
+      if (data.status === "success") {
+        return true;
+      } else {
+        return false;
+      }
     } catch (error) {
       console.log("error", error);
     }
   };
 
   return (
-    <cartContext.Provider value={{ addProductToCart: addProductToCart }}>
+    <cartContext.Provider
+      value={{ addProductToCart: addProductToCart, userCart: userCart }}
+    >
       {children}
     </cartContext.Provider>
   );

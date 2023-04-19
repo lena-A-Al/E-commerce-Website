@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import LoadingScreen from "../loadingScreen/LoadingScreen";
 import { cartContext } from "../../context/CartContext";
+import $ from "jquery";
 
 export default function ProductDetails({ currentUser }) {
   let [productDetails, setProductDetails] = useState(null);
@@ -20,6 +21,20 @@ export default function ProductDetails({ currentUser }) {
       setProductDetails(data.data);
     } catch (error) {
       console.log("eror", error);
+    }
+  };
+
+  const addProductToUserCart = async () => {
+    addProductToCart(productDetails.id);
+    let result = addProductToCart(productDetails.id);
+    if (result) {
+      $(".addedProductMsg").fadeIn(1000, () => {
+        setTimeout(() => {
+          $(".addedProductMsg").fadeOut(4000);
+        }, 1000);
+      });
+    } else {
+      console.log("nothing to add");
     }
   };
 
@@ -48,10 +63,16 @@ export default function ProductDetails({ currentUser }) {
               <h4>Rate: {productDetails.ratingsAverage}</h4>
               <button
                 className="btn btn-success w-100"
-                onClick={() => addProductToCart(productDetails.id)}
+                onClick={() => addProductToUserCart()}
               >
                 Add To Cart +
               </button>
+              <div
+                style={{ display: "none" }}
+                className="addedProductMsg alert alert-info text-center m-5"
+              >
+                A {productDetails.title}has been added successfully to the cart
+              </div>
             </div>
           </div>
         </div>
