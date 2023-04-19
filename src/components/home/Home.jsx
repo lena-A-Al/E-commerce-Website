@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import homeCSS from "./home.module.css";
 import LoadingScreen from "../loadingScreen/LoadingScreen";
@@ -9,6 +9,8 @@ import SliderComponent from "../SliderComponent/SliderComponent";
 export default function Home() {
   //local States to save products coming from the API
   let [products, setProducts] = useState(null);
+  // const { addProductToCart } = useContext();
+
   async function getAllProducts() {
     try {
       //call the endpoint to get all products
@@ -76,11 +78,11 @@ export default function Home() {
                           <h6 className="fs-5 p-3">${product.price}</h6>
                         </div>
                       )}
-                      <div className="position-absolute top-0 start-80 text-bg-info fs-5 d-flex">
-                        <button className="btn btn-dark">Add ToCart +</button>
-                      </div>
                     </div>
                   </Link>
+                  <div className="position-absolute top-0 start-80 text-bg-info fs-5">
+                    <button className="btn btn-dark">Add ToCart +</button>
+                  </div>
                 </div>
               ))}
           </div>

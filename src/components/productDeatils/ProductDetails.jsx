@@ -24,23 +24,24 @@ export default function ProductDetails({ currentUser }) {
     }
   };
 
-  const addProductToUserCart = async (productId) => {
-    // addProductToCart(productDetails.id);
-    addProductToCart(productId);
+  // a different function that can be used.
+  // const addProductToUserCart = async (productId) => {
+  //   // addProductToCart(productDetails.id);
+  //   addProductToCart(productId);
 
-    let result = await addProductToCart(productId);
-    if (await result) {
-      $(".addedProductMsg").fadeIn(1000, () => {
-        setTimeout(() => {
-          $(".addedProductMsg").fadeOut(4000);
-        }, 1000);
-        $(".addToCart").hide();
-        $(".deleteProduct").fadeIn(500);
-      });
-    } else {
-      console.log("nothing to add to the cart");
-    }
-  };
+  //   let result = await addProductToCart(productId);
+  //   if (await result) {
+  //     $(".addedProductMsg").fadeIn(1000, () => {
+  //       setTimeout(() => {
+  //         $(".addedProductMsg").fadeOut(4000);
+  //       }, 1000);
+  //       $(".addToCart").hide();
+  //       $(".deleteProduct").fadeIn(500);
+  //     });
+  //   } else {
+  //     console.log("nothing to add to the cart");
+  //   }
+  // };
 
   useEffect(() => {
     getProductDetails();
@@ -67,7 +68,7 @@ export default function ProductDetails({ currentUser }) {
               <h4>Rate: {productDetails.ratingsAverage}</h4>
               <button
                 className="addToCart btn btn-success w-100"
-                onClick={() => addProductToUserCart(productDetails.id)}
+                onClick={() => addProductToCart(productDetails.id)}
               >
                 Add To Cart +
               </button>

@@ -1,5 +1,6 @@
 import React, { createContext, useState } from "react";
 import axios from "axios";
+import $ from "jquery";
 
 export const cartContext = createContext();
 
@@ -16,10 +17,21 @@ export default function CartContextProvider({ children }) {
           headers: { token: localStorage.getItem("token") },
         }
       );
-      if (data.status === "success") {
-        return true;
+      // if (data.status === "success") {
+      //   return true;
+      // } else {
+      //   return false;
+      // }
+      if (await data.data) {
+        $(".addedProductMsg").fadeIn(1000, () => {
+          setTimeout(() => {
+            $(".addedProductMsg").fadeOut(4000);
+          }, 1000);
+          $(".addToCart").hide();
+          $(".deleteProduct").fadeIn(500);
+        });
       } else {
-        return false;
+        console.log("nothing to add to the cart");
       }
     } catch (error) {
       console.log("error", error);
