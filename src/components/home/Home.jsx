@@ -9,17 +9,17 @@ import SliderComponent from "../SliderComponent/SliderComponent";
 export default function Home() {
   //local States to save products coming from the API
   let [products, setProducts] = useState(null);
-  const getAllProducts = async () => {
+  async function getAllProducts() {
     try {
       //call the endpoint to get all products
-      const { data } = await axios.get(
+      let { data } = await axios.get(
         "https://route-ecommerce.onrender.com/api/v1/products"
       );
       setProducts(data.data);
     } catch (err) {
       console.log("error", err);
     }
-  };
+  }
 
   useEffect(() => {
     getAllProducts();
@@ -36,7 +36,7 @@ export default function Home() {
           <div className="row">
             {products &&
               products.map((product, index) => (
-                <div key={index} className="col-md-2 position-relative">
+                <div key={index} className="col-md-3 position-relative">
                   <Link
                     className={homeCSS.link}
                     to={`/productDeatils/${product.id}`}
@@ -50,6 +50,12 @@ export default function Home() {
                       <h6>
                         {/* indexOf here will find the space after 20 characters, so the slice will be from 0 until the second space after counting 20 */}
                         {product.title.slice(0, product.title.indexOf(" ", 20))}
+                      </h6>
+                      <h6 className="">
+                        <span>
+                          <i class="fa-solid fa-star"></i>{" "}
+                        </span>
+                        {product.ratingsAverage}{" "}
                       </h6>
                       {/* <h6>{product.category.name}</h6> */}
                       {/* <button className={homeCSS.addCart}>Add To Cart +</button> */}
@@ -70,10 +76,8 @@ export default function Home() {
                           <h6 className="fs-5 p-3">${product.price}</h6>
                         </div>
                       )}
-                      <div>
-                        <h6 className="position-absolute top-0 start-80 text-bg-info fs-5">
-                          {product.ratingsAverage}
-                        </h6>
+                      <div className="position-absolute top-0 start-80 text-bg-info fs-5 d-flex">
+                        <button className="btn btn-dark">Add ToCart +</button>
                       </div>
                     </div>
                   </Link>

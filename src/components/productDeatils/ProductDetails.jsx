@@ -24,17 +24,21 @@ export default function ProductDetails({ currentUser }) {
     }
   };
 
-  const addProductToUserCart = async () => {
-    addProductToCart(productDetails.id);
-    let result = addProductToCart(productDetails.id);
-    if (result) {
+  const addProductToUserCart = async (productId) => {
+    // addProductToCart(productDetails.id);
+    addProductToCart(productId);
+
+    let result = await addProductToCart(productId);
+    if (await result) {
       $(".addedProductMsg").fadeIn(1000, () => {
         setTimeout(() => {
           $(".addedProductMsg").fadeOut(4000);
         }, 1000);
+        $(".addToCart").hide();
+        $(".deleteProduct").fadeIn(500);
       });
     } else {
-      console.log("nothing to add");
+      console.log("nothing to add to the cart");
     }
   };
 
@@ -62,16 +66,25 @@ export default function ProductDetails({ currentUser }) {
               <h4>Quantity: {productDetails.quantity}</h4>
               <h4>Rate: {productDetails.ratingsAverage}</h4>
               <button
-                className="btn btn-success w-100"
-                onClick={() => addProductToUserCart()}
+                className="addToCart btn btn-success w-100"
+                onClick={() => addProductToUserCart(productDetails.id)}
               >
                 Add To Cart +
+              </button>
+              <button
+                style={{ display: "none" }}
+                className="deleteProduct btn btn-danger w-100"
+              >
+                Remove From Cart -
               </button>
               <div
                 style={{ display: "none" }}
                 className="addedProductMsg alert alert-info text-center m-5"
               >
-                A {productDetails.title}has been added successfully to the cart
+                A {productDetails.title}has been added successfully to your cart
+                <span>
+                  <i class="fa-solid fa-cart-shopping"></i>{" "}
+                </span>
               </div>
             </div>
           </div>
