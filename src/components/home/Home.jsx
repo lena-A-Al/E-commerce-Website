@@ -4,12 +4,15 @@ import homeCSS from "./home.module.css";
 import LoadingScreen from "../loadingScreen/LoadingScreen";
 import { Link } from "react-router-dom";
 import SliderComponent from "../SliderComponent/SliderComponent";
+import { cartContext } from "../../context/CartContext";
+import $ from "jquery";
+
 // import "jquery"
 
 export default function Home() {
   //local States to save products coming from the API
   let [products, setProducts] = useState(null);
-  // const { addProductToCart } = useContext();
+  const { addProductToCart } = useContext(cartContext);
 
   async function getAllProducts() {
     try {
@@ -23,6 +26,22 @@ export default function Home() {
     }
   }
 
+  const addProductToCartFromHome = async (productId) => {
+    addProductToCart(productId);
+    let result = await addProductToCart(productId);
+    if ((await result) && productId) {
+      $(".addProductInHome").fadeIn(1000, () => {
+        setTimeout(() => {
+          $(".addProductInHome").fadeOut(4000);
+        }, 1000);
+        $(`#addToCartInHome${productId}`).hide();
+        $(`#deleteProductInHome${productId}`).fadeIn(10);
+      });
+    } else {
+      console.log("nothong to add to the cart!");
+    }
+  };
+
   useEffect(() => {
     getAllProducts();
   }, []);
@@ -34,7 +53,16 @@ export default function Home() {
       ) : (
         <div className="container py-4">
           <SliderComponent />
-
+          <div
+            style={{
+              zIndex: "100000",
+              left: "0",
+              display: "none",
+            }}
+            className="addProductInHome alert position-fixed bottom-0 start-50 alert-success text-center bg-dark text-white"
+          >
+            Product was added successfully!!
+          </div>
           <div className="row">
             {products &&
               products.map((product, index) => (
@@ -81,7 +109,20 @@ export default function Home() {
                     </div>
                   </Link>
                   <div className="position-absolute top-0 start-80 text-bg-info fs-5">
-                    <button className="btn btn-dark">Add ToCart +</button>
+                    <button
+                      id={`addToCartInHome${product.id}`}
+                      className="btn btn-info"
+                      onClick={() => addProductToCartFromHome(product.id)}
+                    >
+                      Add To Cart +
+                    </button>
+                    <button
+                      id={`deleteProductInHome${product.id}`}
+                      style={{ display: "none" }}
+                      className="btn btn-danger w-100"
+                    >
+                      Remove From Cart -
+                    </button>
                   </div>
                 </div>
               ))}

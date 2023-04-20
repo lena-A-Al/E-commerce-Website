@@ -9,3 +9,7 @@ body {
   font-family: "Montserrat Alternates", sans-serif;
   background-image: url("./images/light-patten.svg");
 }
+
+a {
+  color: black;
+}

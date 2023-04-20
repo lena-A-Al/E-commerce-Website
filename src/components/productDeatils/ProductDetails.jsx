@@ -25,23 +25,23 @@ export default function ProductDetails({ currentUser }) {
   };
 
   // a different function that can be used.
-  // const addProductToUserCart = async (productId) => {
-  //   // addProductToCart(productDetails.id);
-  //   addProductToCart(productId);
+  const addProductToUserCart = async (productId) => {
+    // addProductToCart(productDetails.id);
+    addProductToCart(productId);
 
-  //   let result = await addProductToCart(productId);
-  //   if (await result) {
-  //     $(".addedProductMsg").fadeIn(1000, () => {
-  //       setTimeout(() => {
-  //         $(".addedProductMsg").fadeOut(4000);
-  //       }, 1000);
-  //       $(".addToCart").hide();
-  //       $(".deleteProduct").fadeIn(500);
-  //     });
-  //   } else {
-  //     console.log("nothing to add to the cart");
-  //   }
-  // };
+    let result = await addProductToCart(productId);
+    if (await result) {
+      $(".addedProductMsg").fadeIn(1000, () => {
+        setTimeout(() => {
+          $(".addedProductMsg").fadeOut(4000);
+        }, 1000);
+        $(".addToCart").hide();
+        $(".deleteProduct").fadeIn(100);
+      });
+    } else {
+      console.log("nothing to add to the cart");
+    }
+  };
 
   useEffect(() => {
     getProductDetails();
@@ -68,7 +68,7 @@ export default function ProductDetails({ currentUser }) {
               <h4>Rate: {productDetails.ratingsAverage}</h4>
               <button
                 className="addToCart btn btn-success w-100"
-                onClick={() => addProductToCart(productDetails.id)}
+                onClick={() => addProductToUserCart(productDetails.id)}
               >
                 Add To Cart +
               </button>
@@ -80,9 +80,10 @@ export default function ProductDetails({ currentUser }) {
               </button>
               <div
                 style={{ display: "none" }}
-                className="addedProductMsg alert alert-info text-center m-5"
+                className="addedProductMsg alert alert-success text-center m-5"
               >
-                A {productDetails.title}has been added successfully to your cart
+                The {productDetails.title}has been added successfully to your
+                cart
                 <span>
                   <i class="fa-solid fa-cart-shopping"></i>{" "}
                 </span>

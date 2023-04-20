@@ -17,22 +17,22 @@ export default function CartContextProvider({ children }) {
           headers: { token: localStorage.getItem("token") },
         }
       );
-      // if (data.status === "success") {
-      //   return true;
-      // } else {
-      //   return false;
-      // }
-      if (await data.data) {
-        $(".addedProductMsg").fadeIn(1000, () => {
-          setTimeout(() => {
-            $(".addedProductMsg").fadeOut(4000);
-          }, 1000);
-          $(".addToCart").hide();
-          $(".deleteProduct").fadeIn(500);
-        });
+      if (data.status === "success") {
+        return true;
       } else {
-        console.log("nothing to add to the cart");
+        return false;
       }
+      // if (await data.data) {
+      //   $(".addedProductMsg").fadeIn(1000, () => {
+      //     setTimeout(() => {
+      //       $(".addedProductMsg").fadeOut(4000);
+      //     }, 1000);
+      //     $(".addToCart").hide();
+      //     $(".deleteProduct").fadeIn(500);
+      //   });
+      // } else {
+      //   console.log("nothing to add to the cart");
+      // }
     } catch (error) {
       console.log("error", error);
     }
