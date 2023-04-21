@@ -26,7 +26,7 @@ export default function ProductDetails({ currentUser }) {
 
   // a different function that can be used.
   const addProductToUserCart = async (productId) => {
-    // addProductToCart(productDetails.id);
+    console.log("addPrduct function");
     addProductToCart(productId);
 
     let result = await addProductToCart(productId);
