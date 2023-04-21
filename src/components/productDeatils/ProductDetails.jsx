@@ -7,7 +7,7 @@ import $ from "jquery";
 
 export default function ProductDetails({ currentUser }) {
   let [productDetails, setProductDetails] = useState(null);
-  const { addProductToCart } = useContext(cartContext);
+  const { addProductToCart, deleteProductFromCart } = useContext(cartContext);
 
   //customs hooks
   const { id } = useParams();
@@ -33,13 +33,27 @@ export default function ProductDetails({ currentUser }) {
     if (await result) {
       $(".addedProductMsg").fadeIn(1000, () => {
         setTimeout(() => {
-          $(".addedProductMsg").fadeOut(4000);
+          $(".addedProductMsg").fadeOut(300);
         }, 1000);
         $(".addToCart").hide();
         $(".deleteProduct").fadeIn(100);
       });
     } else {
       console.log("nothing to add to the cart");
+    }
+  };
+
+  const deleteProductFromUserCart = async (productId) => {
+    deleteProductFromCart(productId);
+    let result = deleteProductFromCart(productId);
+    if (await result) {
+      $(".deletedProductMsg").fadeIn(1000, () => {
+        setTimeout(() => {
+          $(".deletedProductMsg").fadeOut(4000);
+        }, 100);
+      });
+      $(".deleteProduct").hide();
+      $(".addToCart").fadeIn(100);
     }
   };
 
@@ -75,6 +89,7 @@ export default function ProductDetails({ currentUser }) {
               <button
                 style={{ display: "none" }}
                 className="deleteProduct btn btn-danger w-100"
+                onClick={() => deleteProductFromUserCart(productDetails.id)}
               >
                 Remove From Cart -
               </button>
@@ -84,6 +99,17 @@ export default function ProductDetails({ currentUser }) {
               >
                 The {productDetails.title}has been added successfully to your
                 cart
+                <span>
+                  <i class="fa-solid fa-cart-shopping"></i>{" "}
+                </span>
+              </div>
+
+              <div
+                style={{ display: "none" }}
+                className="deletedProductMsg alert alert-danger text-center m-5"
+              >
+                The {productDetails.title}has been removed successfully from
+                your cart
                 <span>
                   <i class="fa-solid fa-cart-shopping"></i>{" "}
                 </span>

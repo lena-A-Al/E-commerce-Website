@@ -107,7 +107,7 @@ function App() {
           element: (
             <ProtectedRoutes>
               <CartContextProvider>
-                <Cart />
+                <Cart currentUser={currentUser} />
               </CartContextProvider>
             </ProtectedRoutes>
           ),

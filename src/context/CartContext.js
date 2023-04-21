@@ -1,12 +1,13 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
 import $ from "jquery";
 
 export const cartContext = createContext();
 
 export default function CartContextProvider({ children }) {
-  let [userCart, setUserCart] = useState("");
-
+  let [numberOfCartItems, setNumberOfCartItems] = useState(0);
+  let [totalCartPrice, setTotalCartPrice] = useState(0);
+  let [cartProducts, setCartProducts] = useState(null);
   //this function will add product to user cart
   const addProductToCart = async (productId) => {
     try {
@@ -38,9 +39,59 @@ export default function CartContextProvider({ children }) {
     }
   };
 
+  const getProductsInUserCart = async () => {
+    const token = localStorage.getItem("token");
+    try {
+      if (token) {
+        const { data } = await axios.get(
+          `https://route-ecommerce.onrender.com/api/v1/cart`,
+          { headers: { token: token } }
+        );
+        if (data.status === "success") {
+          setNumberOfCartItems(data.numOfCartItems);
+          setTotalCartPrice(data.data.totalCartPrice);
+          setCartProducts(data.data.products);
+        }
+      }
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+
+  const deleteProductFromCart = async (productId) => {
+    const token = localStorage.getItem("token");
+
+    try {
+      const { data } = await axios.delete(
+        `https://route-ecommerce.onrender.com/api/v1/cart/${productId}`,
+        { headers: { token: token } }
+      );
+      console.log("data", data);
+      if (data.status === "success") {
+        setNumberOfCartItems(data.numOfCartItems);
+        setTotalCartPrice(data.data.totalCartPrice);
+        setCartProducts(data.data.products);
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+
+  useEffect(() => {
+    getProductsInUserCart();
+  }, []);
   return (
     <cartContext.Provider
-      value={{ addProductToCart: addProductToCart, userCart: userCart }}
+      value={{
+        addProductToCart: addProductToCart,
+        deleteProductFromCart: deleteProductFromCart,
+        numberOfCartItems,
+        totalCartPrice,
+        cartProducts,
+      }}
     >
       {children}
     </cartContext.Provider>
