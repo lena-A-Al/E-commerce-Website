@@ -12,7 +12,7 @@ export default function Cart({ currentUser }) {
   } = useContext(cartContext);
 
   const deleteProductFromUserCart = async (productId) => {
-    deleteProductFromCart(productId);
+    // deleteProductFromCart(productId);
     const result = deleteProductFromCart(productId);
     if (await result) {
       $(`#deleteProductInCartMsg${productId}`).fadeIn(4000, () => {

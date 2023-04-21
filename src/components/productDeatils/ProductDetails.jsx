@@ -27,7 +27,7 @@ export default function ProductDetails({ currentUser }) {
   // a different function that can be used.
   const addProductToUserCart = async (productId) => {
     console.log("addPrduct function");
-    addProductToCart(productId);
+    // addProductToCart(productId);
 
     let result = await addProductToCart(productId);
     if (await result) {
@@ -44,8 +44,8 @@ export default function ProductDetails({ currentUser }) {
   };
 
   const deleteProductFromUserCart = async (productId) => {
-    deleteProductFromCart(productId);
-    let result = deleteProductFromCart(productId);
+    // deleteProductFromCart(productId);
+    let result = await deleteProductFromCart(productId);
     if (await result) {
       $(".deletedProductMsg").fadeIn(1000, () => {
         setTimeout(() => {
