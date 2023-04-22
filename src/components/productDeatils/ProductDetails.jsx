@@ -27,10 +27,7 @@ export default function ProductDetails({ currentUser }) {
   // a different function that can be used.
   const addProductToUserCart = async (productId) => {
     console.log("addPrduct function");
-    // addProductToCart(productId);
-
-    let result = await addProductToCart(productId);
-    if (await result) {
+    if ((await addProductToCart(productId)) === true) {
       $(".addedProductMsg").fadeIn(1000, () => {
         setTimeout(() => {
           $(".addedProductMsg").fadeOut(300);
