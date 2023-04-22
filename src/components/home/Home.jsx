@@ -12,7 +12,7 @@ import $ from "jquery";
 export default function Home() {
   //local States to save products coming from the API
   let [products, setProducts] = useState(null);
-  let addProductToCart = useContext(cartContext);
+  const { addProductToCart } = useContext(cartContext);
 
   async function getAllProducts() {
     try {
@@ -27,7 +27,9 @@ export default function Home() {
   }
 
   const addProductToCartFromHome = async (productId) => {
-    if ((await addProductToCart(productId)) === true) {
+    // addProductToCart(productId);
+    let result = await addProductToCart(productId);
+    if ((await result) && productId) {
       $(".addProductInHome").fadeIn(1000, () => {
         setTimeout(() => {
           $(".addProductInHome").fadeOut(4000);

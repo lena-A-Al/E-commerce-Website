@@ -33,10 +33,14 @@ export default function Cart({ currentUser }) {
         <LoadingScreen />
       ) : (
         <div className="container py-5 text-center">
-          <h2 className="text-center">{currentUser.name}' Cart</h2>
-          <h3>
-            Total price:<span className="text-primary"> ${totalCartPrice}</span>
-          </h3>
+          <h2 className="text-center">Welcome To {currentUser.name}' Cart</h2>
+          <div className="d-flex justify-content-between">
+            <h3>
+              Total price:
+              <span className="text-primary"> ${totalCartPrice}</span>
+            </h3>
+            <button className="btn btn-primary">Confirm</button>
+          </div>
           <div className="row">
             {cartProducts.map((product, index) => (
               <div className="col-md-3 ">
