@@ -1,6 +1,7 @@
 import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
 import $ from "jquery";
+import { useFormik } from "formik";
 
 export const cartContext = createContext();
 
@@ -80,6 +81,30 @@ export default function CartContextProvider({ children }) {
     }
   };
 
+  const updateProductInCart = async (productId, count) => {
+    console.log("count", count);
+    try {
+      const token = localStorage.getItem("token");
+      const { data } = await axios.put(
+        `https://route-ecommerce.onrender.com/api/v1/cart/${productId}`,
+        { count: count },
+        {
+          headers: { token: token },
+        }
+      );
+      console.log(data);
+      if (data.status === "success") {
+        setNumberOfCartItems(data.numOfCartItems);
+        setTotalCartPrice(data.data.totalCartPrice);
+        setCartProducts(data.data.products);
+      } else {
+        console.log("no product to be updated");
+      }
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+
   useEffect(() => {
     getProductsInUserCart();
   }, []);
@@ -88,6 +113,7 @@ export default function CartContextProvider({ children }) {
       value={{
         addProductToCart: addProductToCart,
         deleteProductFromCart: deleteProductFromCart,
+        updateProductInCart: updateProductInCart,
         numberOfCartItems,
         totalCartPrice,
         cartProducts,
