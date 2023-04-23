@@ -3,6 +3,7 @@ import { cartContext } from "../../context/CartContext";
 import LoadingScreen from "../loadingScreen/LoadingScreen";
 import $ from "jquery";
 import { useFormik } from "formik";
+import { Link } from "react-router-dom";
 
 export default function Cart({ currentUser }) {
   const {
@@ -39,7 +40,9 @@ export default function Cart({ currentUser }) {
               Total price:
               <span className="text-primary"> ${totalCartPrice}</span>
             </h3>
-            <button className="btn btn-primary">Confirm</button>
+            <Link to="/payment">
+              <button className="btn btn-primary">Confirm</button>
+            </Link>
           </div>
           <div className="row">
             {cartProducts.map((product, index) => (
@@ -64,7 +67,6 @@ export default function Cart({ currentUser }) {
                         event.target.value
                       )
                     }
-                    // min="0"
                     value={product.count}
                     type="number"
                     className="form-control"

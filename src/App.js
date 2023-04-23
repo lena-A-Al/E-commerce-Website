@@ -20,6 +20,8 @@ import jwt_decode from "jwt-decode";
 import { useEffect, useState } from "react";
 import Cart from "./components/cart/Cart";
 import CartContextProvider from "./context/CartContext";
+import Payment from "./components/payment/Payment";
+import AllOrders from "./components/allOrders/AllOrders";
 
 function App() {
   let [currentUser, setCurrentUser] = useState(null);
@@ -49,6 +51,8 @@ function App() {
         <Navigate to="/login" replace={true} />
       );
     } else {
+      console.log(currentUser);
+
       return <>{children}</>;
     }
   }
@@ -109,6 +113,24 @@ function App() {
               <CartContextProvider>
                 <Cart currentUser={currentUser} />
               </CartContextProvider>
+            </ProtectedRoutes>
+          ),
+        },
+        {
+          path: "payment",
+          element: (
+            <ProtectedRoutes>
+              <CartContextProvider>
+                <Payment />
+              </CartContextProvider>
+            </ProtectedRoutes>
+          ),
+        },
+        {
+          path: "allOrders",
+          element: (
+            <ProtectedRoutes>
+              <AllOrders currentUser={currentUser} />
             </ProtectedRoutes>
           ),
         },

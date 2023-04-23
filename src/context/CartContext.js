@@ -1,14 +1,16 @@
 import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import $ from "jquery";
-import { useFormik } from "formik";
 
 export const cartContext = createContext();
 
 export default function CartContextProvider({ children }) {
+  let navigate = useNavigate();
   let [numberOfCartItems, setNumberOfCartItems] = useState(0);
   let [totalCartPrice, setTotalCartPrice] = useState(0);
   let [cartProducts, setCartProducts] = useState(null);
+  let [cartId, setCartId] = useState(null);
   //this function will add product to user cart
   const addProductToCart = async (productId) => {
     try {
@@ -37,15 +39,29 @@ export default function CartContextProvider({ children }) {
           `https://route-ecommerce.onrender.com/api/v1/cart`,
           { headers: { token: token } }
         );
+        console.log(cartId);
         if (data.status === "success") {
+          console.log("success", data.status);
           setNumberOfCartItems(data.numOfCartItems);
           setTotalCartPrice(data.data.totalCartPrice);
           setCartProducts(data.data.products);
+          setCartId(data.data._id);
         }
       }
     } catch (error) {
-      console.log("error", error);
+      console.log("error", error.response.status);
+      if (error.response.status === 404) {
+        $(".noProductsInCart").fadeIn(100, () => {
+          setTimeout(() => {
+            $(".noProductsInCart").fadeOut(1500);
+          }, 100);
+        });
+        navigate("/home");
+      } else {
+        console.log("error", error);
+      }
     }
+    console.log("cartId", cartId);
   };
 
   const deleteProductFromCart = async (productId) => {
@@ -106,8 +122,15 @@ export default function CartContextProvider({ children }) {
         numberOfCartItems,
         totalCartPrice,
         cartProducts,
+        cartId,
       }}
     >
+      <div
+        style={{ display: "none" }}
+        className="noProductsInCart container text-center alert alert-dark text-black fw-bold"
+      >
+        <h5>No Cart Exist</h5>
+      </div>
       {children}
     </cartContext.Provider>
   );
