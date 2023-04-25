@@ -28,6 +28,8 @@ export default function Cart({ currentUser }) {
       console.log("nothing to remove!!");
     }
   };
+
+  console.log("cartProducts", cartProducts);
   return (
     <>
       {cartProducts == null ? (

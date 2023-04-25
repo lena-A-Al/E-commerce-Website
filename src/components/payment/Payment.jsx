@@ -20,7 +20,13 @@ export default function Payment() {
     try {
       let { data } = await axios.post(
         `https://route-ecommerce.onrender.com/api/v1/orders/${cartId}`,
-        { userPaymentInfo },
+        {
+          shippingAddress: {
+            details: document.querySelector("#details").value,
+            phone: document.querySelector("#phone").value,
+            city: document.querySelector("#city").value,
+          },
+        },
         { headers: { token: localStorage.getItem("token") } }
       );
       console.log("data", data);
@@ -32,6 +38,34 @@ export default function Payment() {
     }
   };
 
+  const confirmCreditOrder = async () => {
+    try {
+      let { data } = await axios.post(
+        `https://route-ecommerce.onrender.com/api/v1/orders/checkout-session/${cartId}`,
+        {
+          shippingAddress: {
+            details: document.querySelector("#details").value,
+            phone: document.querySelector("#phone").value,
+            city: document.querySelector("#city").value,
+          },
+        },
+        {
+          headers: { token: localStorage.getItem("token") },
+          // we use location.port to make it dynamic.
+          params: { url: `http://localhost:3000` },
+        }
+      );
+
+      console.log("inside creditOrder");
+      console.log("data", data);
+      if (data.status === "success") {
+        window.open(data.session.url);
+      }
+    } catch (error) {
+      console.log("inside creditOrder");
+      console.log("error", error);
+    }
+  };
   return (
     <>
       {cartId !== null ? (
@@ -64,11 +98,19 @@ export default function Payment() {
               />
 
               <button
-                className="btn btn-primary mb-5"
+                className="btn btn-primary mb-5 me-4"
                 type="button"
                 onClick={() => confirmCashOrder()}
               >
-                Confirm
+                Confirm Cash
+              </button>
+
+              <button
+                className="btn btn-primary mb-5"
+                type="button"
+                onClick={() => confirmCreditOrder()}
+              >
+                Confirm Credit Card
               </button>
             </form>
           </div>
