@@ -15,9 +15,9 @@ export default function Navbar({ currentUser, clearUserData }) {
           <Link className="navbar-brand">
             <img src={refreshCartLogo} alt="freshCart-logo" />
           </Link>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
+              <li className="nav-item">
                 <Link
                   className="nav-link active"
                   aria-current="page"
@@ -27,7 +27,7 @@ export default function Navbar({ currentUser, clearUserData }) {
                 </Link>
               </li>
 
-              <li class="nav-item">
+              <li className="nav-item">
                 <Link
                   className="nav-link active"
                   aria-current="page"
@@ -38,7 +38,7 @@ export default function Navbar({ currentUser, clearUserData }) {
               </li>
 
               {currentUser ? (
-                <li class="nav-item">
+                <li className="nav-item">
                   <Link
                     className="nav-link active"
                     aria-current="page"
@@ -50,10 +50,24 @@ export default function Navbar({ currentUser, clearUserData }) {
               ) : (
                 ""
               )}
+
+              {currentUser ? (
+                <li className="nav-item">
+                  <Link
+                    className="nav-link active"
+                    aria-current="page"
+                    to="/allOrders"
+                  >
+                    AllOrders
+                  </Link>
+                </li>
+              ) : (
+                ""
+              )}
             </ul>
             {currentUser ? (
               <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item">
+                <li className="nav-item">
                   <Link
                     className="nav-link active"
                     aria-current="page"
@@ -62,7 +76,7 @@ export default function Navbar({ currentUser, clearUserData }) {
                     Profile
                   </Link>
                 </li>
-                <li class="nav-item">
+                <li className="nav-item">
                   <span
                     onClick={logoutUser}
                     className="nav-link active"
@@ -74,7 +88,7 @@ export default function Navbar({ currentUser, clearUserData }) {
               </ul>
             ) : (
               <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item">
+                <li className="nav-item">
                   <Link
                     className="nav-link active"
                     aria-current="page"
@@ -83,7 +97,7 @@ export default function Navbar({ currentUser, clearUserData }) {
                     Login
                   </Link>
                 </li>
-                <li class="nav-item">
+                <li className="nav-item">
                   <Link
                     className="nav-link active"
                     aria-current="page"

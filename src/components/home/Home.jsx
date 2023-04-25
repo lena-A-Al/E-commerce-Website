@@ -27,7 +27,6 @@ export default function Home() {
   }
 
   const addProductToCartFromHome = async (productId) => {
-    // addProductToCart(productId);
     let result = await addProductToCart(productId);
     if ((await result) && productId) {
       $(".addProductInHome").fadeIn(1000, () => {
