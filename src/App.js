@@ -23,6 +23,7 @@ import Cart from "./components/cart/Cart";
 import CartContextProvider from "./context/CartContext";
 import Payment from "./components/payment/Payment";
 import AllOrders from "./components/allOrders/AllOrders";
+import { Offline, Online } from "react-detect-offline";
 
 function App() {
   let [currentUser, setCurrentUser] = useState(null);
@@ -76,11 +77,11 @@ function App() {
         {
           path: "productDeatils/:id",
           element: (
-            <ProtectedRoutes>
-              <CartContextProvider>
-                <ProductDetails />
-              </CartContextProvider>
-            </ProtectedRoutes>
+            // <ProtectedRoutes>
+            <CartContextProvider>
+              <ProductDetails />
+            </CartContextProvider>
+            // </ProtectedRoutes>
           ),
         },
         { path: "brands", element: <Brands /> },
@@ -155,9 +156,16 @@ function App() {
   }, [currentUser]);
   return (
     <>
+      <Offline>
+        <div className="alert alert-danger text-center">
+          <h4>You are offline Now</h4>
+        </div>
+      </Offline>
+      {/* <Online> */}{" "}
       <div className="App">
         <RouterProvider router={router}></RouterProvider>
       </div>
+      {/* </Online> */}
     </>
   );
 }

@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import SliderComponent from "../SliderComponent/SliderComponent";
 import { cartContext } from "../../context/CartContext";
 import $ from "jquery";
+import { Helmet } from "react-helmet";
 
 // import "jquery"
 
@@ -47,6 +48,11 @@ export default function Home() {
 
   return (
     <>
+      <Helmet>
+        {/* <meta charSet="utf-8" /> */}
+        <title>home</title>
+        {/* <link rel="canonical" href="http://mysite.com/example" /> */}
+      </Helmet>
       {products == null ? (
         <LoadingScreen />
       ) : (

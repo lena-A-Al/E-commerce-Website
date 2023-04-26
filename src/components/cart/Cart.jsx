@@ -4,6 +4,7 @@ import LoadingScreen from "../loadingScreen/LoadingScreen";
 import $ from "jquery";
 import { useFormik } from "formik";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 export default function Cart({ currentUser }) {
   const {
@@ -32,6 +33,12 @@ export default function Cart({ currentUser }) {
   console.log("cartProducts", cartProducts);
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>carts</title>
+        <link rel="canonical" href="http://mysite.com/example" />
+      </Helmet>
+
       {cartProducts == null ? (
         <LoadingScreen />
       ) : (

@@ -4,6 +4,7 @@ import axios from "axios";
 import LoadingScreen from "../loadingScreen/LoadingScreen";
 import { cartContext } from "../../context/CartContext";
 import $ from "jquery";
+import { Helmet } from "react-helmet";
 
 export default function ProductDetails({ currentUser }) {
   let [productDetails, setProductDetails] = useState(null);
@@ -60,9 +61,14 @@ export default function ProductDetails({ currentUser }) {
   return (
     <>
       {productDetails == null ? (
-        <LoadingScreen />
+        <div>
+          <LoadingScreen />
+        </div>
       ) : (
         <div className="container">
+          <Helmet>
+            <title>{productDetails.title ? productDetails.title : ""}</title>
+          </Helmet>
           <div className="row align-items-center justify-content-center">
             <div className="col-md-3">
               <img

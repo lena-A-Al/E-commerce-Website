@@ -4,6 +4,7 @@ import { useFormik } from "formik";
 import axios from "axios";
 import $ from "jquery";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 export default function Register() {
   //customs hooks
@@ -85,131 +86,138 @@ export default function Register() {
   });
 
   return (
-    <div className="container py-5">
-      <h2 className="">Registeration Form</h2>
+    <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>register</title>
+        <link rel="canonical" href="http://mysite.com/example" />
+      </Helmet>
+      <div className="container py-5">
+        <h2 className="">Registeration Form</h2>
 
-      <div
-        style={{ display: "none" }}
-        className="errorMsg alert alert-success text-center"
-      >
-        Email already in use!
-      </div>
-
-      <div
-        style={{ display: "none" }}
-        className="successMsg alert alert-success text-center"
-      >
-        Email is valid!
-      </div>
-
-      <form className="" onSubmit={formik.handleSubmit}>
-        <label className="mt-3" htmlFor="name">
-          Name
-        </label>
-        <input
-          onBlur={formik.handleBlur}
-          onChange={formik.handleChange}
-          value={formik.values.name}
-          id="name"
-          placeholder="name"
-          type="text"
-          className="form-control"
-        />
-        {formik.errors.name && formik.touched.name ? (
-          <div className="alert alert-danger text-center">
-            {formik.errors.name}
-          </div>
-        ) : (
-          ""
-        )}
-
-        <label className="mt-3" htmlFor="email">
-          Email
-        </label>
-        <input
-          onBlur={formik.handleBlur}
-          onChange={formik.handleChange}
-          value={formik.values.email}
-          id="email"
-          placeholder="email"
-          type="email"
-          className="form-control"
-        />
-        {formik.errors.email && formik.touched.email ? (
-          <div className="alert alert-danger text-center">
-            {formik.errors.email}
-          </div>
-        ) : (
-          ""
-        )}
-
-        <label className="mt-3" htmlFor="phone">
-          Phone
-        </label>
-        <input
-          onBlur={formik.handleBlur}
-          onChange={formik.handleChange}
-          value={formik.values.phone}
-          id="phone"
-          placeholder="phone"
-          type="text"
-          className="form-control"
-        />
-        {formik.errors.phone && formik.touched.phone ? (
-          <div className="alert alert-danger text-center">
-            {formik.errors.phone}
-          </div>
-        ) : (
-          ""
-        )}
-
-        <label className="mt-3" htmlFor="password">
-          Password
-        </label>
-        <input
-          onBlur={formik.handleBlur}
-          onChange={formik.handleChange}
-          value={formik.values.password}
-          id="password"
-          placeholder="password"
-          type="password"
-          className="form-control"
-        />
-        {formik.errors.password && formik.touched.password ? (
-          <div className="alert alert-danger text-center">
-            {formik.errors.password}
-          </div>
-        ) : (
-          ""
-        )}
-
-        <label className="mt-3" htmlFor="rePassword">
-          RePassord
-        </label>
-        <input
-          onBlur={formik.handleBlur}
-          onChange={formik.handleChange}
-          value={formik.values.rePassword}
-          id="rePassword"
-          placeholder="rePassword"
-          type="password"
-          className="form-control"
-        />
-        {formik.errors.rePassword && formik.touched.rePassword ? (
-          <div className="alert alert-danger text-center">
-            {formik.errors.rePassword}
-          </div>
-        ) : (
-          ""
-        )}
-
-        <button
-          type="submit"
-          className="btn btn-outline-success mt-4 mb-4 w-40"
+        <div
+          style={{ display: "none" }}
+          className="errorMsg alert alert-success text-center"
         >
-          Register
-        </button>
-      </form>
-    </div>
+          Email already in use!
+        </div>
+
+        <div
+          style={{ display: "none" }}
+          className="successMsg alert alert-success text-center"
+        >
+          Email is valid!
+        </div>
+
+        <form className="" onSubmit={formik.handleSubmit}>
+          <label className="mt-3" htmlFor="name">
+            Name
+          </label>
+          <input
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
+            value={formik.values.name}
+            id="name"
+            placeholder="name"
+            type="text"
+            className="form-control"
+          />
+          {formik.errors.name && formik.touched.name ? (
+            <div className="alert alert-danger text-center">
+              {formik.errors.name}
+            </div>
+          ) : (
+            ""
+          )}
+
+          <label className="mt-3" htmlFor="email">
+            Email
+          </label>
+          <input
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
+            value={formik.values.email}
+            id="email"
+            placeholder="email"
+            type="email"
+            className="form-control"
+          />
+          {formik.errors.email && formik.touched.email ? (
+            <div className="alert alert-danger text-center">
+              {formik.errors.email}
+            </div>
+          ) : (
+            ""
+          )}
+
+          <label className="mt-3" htmlFor="phone">
+            Phone
+          </label>
+          <input
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
+            value={formik.values.phone}
+            id="phone"
+            placeholder="phone"
+            type="text"
+            className="form-control"
+          />
+          {formik.errors.phone && formik.touched.phone ? (
+            <div className="alert alert-danger text-center">
+              {formik.errors.phone}
+            </div>
+          ) : (
+            ""
+          )}
+
+          <label className="mt-3" htmlFor="password">
+            Password
+          </label>
+          <input
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
+            value={formik.values.password}
+            id="password"
+            placeholder="password"
+            type="password"
+            className="form-control"
+          />
+          {formik.errors.password && formik.touched.password ? (
+            <div className="alert alert-danger text-center">
+              {formik.errors.password}
+            </div>
+          ) : (
+            ""
+          )}
+
+          <label className="mt-3" htmlFor="rePassword">
+            RePassord
+          </label>
+          <input
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
+            value={formik.values.rePassword}
+            id="rePassword"
+            placeholder="rePassword"
+            type="password"
+            className="form-control"
+          />
+          {formik.errors.rePassword && formik.touched.rePassword ? (
+            <div className="alert alert-danger text-center">
+              {formik.errors.rePassword}
+            </div>
+          ) : (
+            ""
+          )}
+
+          <button
+            type="submit"
+            className="btn btn-outline-success mt-4 mb-4 w-40"
+          >
+            Register
+          </button>
+        </form>
+      </div>
+    </>
   );
 }

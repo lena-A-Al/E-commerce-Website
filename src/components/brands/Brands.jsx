@@ -3,6 +3,7 @@ import brandsCSS from "./brands.module.css";
 import axios from "axios";
 import LoadingScreen from "../loadingScreen/LoadingScreen";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 export default function Brands() {
   let [allBrands, setAllBrands] = useState(null);
@@ -24,6 +25,9 @@ export default function Brands() {
 
   return (
     <>
+      <Helmet>
+        <title>brands</title>
+      </Helmet>
       {allBrands == null ? (
         <LoadingScreen />
       ) : (

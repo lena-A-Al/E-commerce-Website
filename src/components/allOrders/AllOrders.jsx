@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import LoadingScreen from "../loadingScreen/LoadingScreen";
+import { Helmet } from "react-helmet";
 
 export default function AllOrders({ currentUser }) {
   let [allOrders, setAllOrders] = useState(null);
@@ -25,6 +26,11 @@ export default function AllOrders({ currentUser }) {
 
   return (
     <>
+      <Helmet>
+        {/* <meta charSet="utf-8" /> */}
+        <title>allOrders</title>
+        {/* <link rel="canonical" href="http://mysite.com/example" /> */}
+      </Helmet>
       {allOrders === null ? (
         <LoadingScreen />
       ) : (

@@ -3,6 +3,7 @@ import axios from "axios";
 import { useFormik } from "formik";
 import { cartContext } from "../../context/CartContext";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 export default function Payment() {
   let navigate = useNavigate();
@@ -68,6 +69,11 @@ export default function Payment() {
   };
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>payment</title>
+        <link rel="canonical" href="http://mysite.com/example" />
+      </Helmet>
       {cartId !== null ? (
         <div className="container">
           <h2>Welcome</h2>

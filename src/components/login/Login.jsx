@@ -4,6 +4,7 @@ import axios from "axios";
 import $ from "jquery";
 import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
+import { Helmet } from "react-helmet";
 
 export default function Login({ getUserData }) {
   //customs hooks
@@ -77,71 +78,79 @@ export default function Login({ getUserData }) {
   });
 
   return (
-    <div className="container py-5">
-      <h2 className="">Login Form</h2>
+    <>
+      {" "}
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>login</title>
+        <link rel="canonical" href="http://mysite.com/example" />
+      </Helmet>
+      <div className="container py-5">
+        <h2 className="">Login Form</h2>
 
-      <div
-        style={{ display: "none" }}
-        className="errorMsg alert alert-danger text-center"
-      >
-        Email or Password are incorrect, try again!!
-      </div>
-
-      <div
-        style={{ display: "none" }}
-        className="successMsg alert alert-success text-center"
-      >
-        successfully logged in !!
-      </div>
-
-      <form className="" onSubmit={formik.handleSubmit}>
-        <label className="mt-3" htmlFor="email">
-          Email
-        </label>
-        <input
-          onBlur={formik.handleBlur}
-          onChange={formik.handleChange}
-          value={formik.values.email}
-          id="email"
-          placeholder="email"
-          type="email"
-          className="form-control"
-        />
-        {formik.errors.email && formik.touched.email ? (
-          <div className="alert alert-danger text-center">
-            {formik.errors.email}
-          </div>
-        ) : (
-          ""
-        )}
-
-        <label className="mt-3" htmlFor="password">
-          Password
-        </label>
-        <input
-          onBlur={formik.handleBlur}
-          onChange={formik.handleChange}
-          value={formik.values.password}
-          id="password"
-          placeholder="password"
-          type="password"
-          className="form-control"
-        />
-        {formik.errors.password && formik.touched.password ? (
-          <div className="alert alert-danger text-center">
-            {formik.errors.password}
-          </div>
-        ) : (
-          ""
-        )}
-
-        <button
-          type="submit"
-          className="btn btn-outline-success mt-4 mb-4 w-40"
+        <div
+          style={{ display: "none" }}
+          className="errorMsg alert alert-danger text-center"
         >
-          Login
-        </button>
-      </form>
-    </div>
+          Email or Password are incorrect, try again!!
+        </div>
+
+        <div
+          style={{ display: "none" }}
+          className="successMsg alert alert-success text-center"
+        >
+          successfully logged in !!
+        </div>
+
+        <form className="" onSubmit={formik.handleSubmit}>
+          <label className="mt-3" htmlFor="email">
+            Email
+          </label>
+          <input
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
+            value={formik.values.email}
+            id="email"
+            placeholder="email"
+            type="email"
+            className="form-control"
+          />
+          {formik.errors.email && formik.touched.email ? (
+            <div className="alert alert-danger text-center">
+              {formik.errors.email}
+            </div>
+          ) : (
+            ""
+          )}
+
+          <label className="mt-3" htmlFor="password">
+            Password
+          </label>
+          <input
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
+            value={formik.values.password}
+            id="password"
+            placeholder="password"
+            type="password"
+            className="form-control"
+          />
+          {formik.errors.password && formik.touched.password ? (
+            <div className="alert alert-danger text-center">
+              {formik.errors.password}
+            </div>
+          ) : (
+            ""
+          )}
+
+          <button
+            type="submit"
+            className="btn btn-outline-success mt-4 mb-4 w-40"
+          >
+            Login
+          </button>
+        </form>
+      </div>
+    </>
   );
 }
