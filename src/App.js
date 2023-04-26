@@ -5,6 +5,7 @@ import {
   Navigate,
   RouterProvider,
   createBrowserRouter,
+  createHashRouter,
   useNavigate,
 } from "react-router-dom";
 import Home from "./components/home/Home.jsx";
@@ -56,7 +57,7 @@ function App() {
       return <>{children}</>;
     }
   }
-  const router = createBrowserRouter([
+  const router = createHashRouter([
     {
       path: "",
       element: (

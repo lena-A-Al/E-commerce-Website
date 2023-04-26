@@ -12,7 +12,7 @@ import $ from "jquery";
 export default function Home() {
   //local States to save products coming from the API
   let [products, setProducts] = useState(null);
-  const { addProductToCart } = useContext(cartContext);
+  const addProductToCart = useContext(cartContext);
 
   async function getAllProducts() {
     try {
