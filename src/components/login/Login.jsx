@@ -11,11 +11,11 @@ export default function Login({ getUserData }) {
   let navigate = useNavigate();
   // info coming from the form
   let user = {
-    name: "",
+    // name: "",
     email: "",
     password: "",
-    rePassword: "",
-    phone: "",
+    // rePassword: "",
+    // phone: "",
   };
 
   //function to send the values to the backend

@@ -65,7 +65,7 @@ function App() {
         <Layout currentUser={currentUser} clearUserData={clearUserData} />
       ),
       children: [
-        { path: "", element: <Home /> },
+        // { path: "", element: <Home /> },
         {
           path: "home",
           element: (
