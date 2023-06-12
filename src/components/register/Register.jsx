@@ -158,7 +158,8 @@ export default function Register() {
             onChange={formik.handleChange}
             value={formik.values.phone}
             id="phone"
-            placeholder="phone"
+            // ٠١٠١٩٣٨١٨٤٠
+            placeholder="Phone must be 11 numbers and must start with 0101"
             type="text"
             className="form-control"
           />
