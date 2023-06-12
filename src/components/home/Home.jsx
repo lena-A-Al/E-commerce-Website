@@ -88,7 +88,7 @@ export default function Home() {
                       </h6>
                       <h6 className="">
                         <span>
-                          <i class="fa-solid fa-star"></i>{" "}
+                          <i className="fa-solid fa-star text-warning"></i>{" "}
                         </span>
                         {product.ratingsAverage}{" "}
                       </h6>
@@ -114,13 +114,13 @@ export default function Home() {
                     </div>
                   </Link>
                   <div className="position-absolute top-0 start-80 text-bg-info fs-5">
-                    <button
+                    {/* <button
                       id={`addToCartInHome${product.id}`}
                       className="btn btn-info"
                       onClick={() => addProductToCartFromHome(product.id)}
                     >
                       Add To Cart +
-                    </button>
+                    </button> */}
                     <button
                       id={`deleteProductInHome${product.id}`}
                       style={{ display: "none" }}
